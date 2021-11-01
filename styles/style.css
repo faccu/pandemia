@@ -1,0 +1,89 @@
+body {
+  text-align: center;
+  background-color: black;
+  color: #07C32C;
+  /* background-image: url('../images/grid.png'); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* font-family: 'Press Start 2P', cursive; */
+}
+
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 90%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.inner img{
+  min-width: 500px;
+}
+
+.blink {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+body h1 {
+  font-size: 60px;
+  text-transform: uppercase;
+}
+
+body button {
+  font-size: 20px;
+  background-color: #000;
+  color: #07C32C;
+  padding: 10px 20px;
+  border: 2px solid #07C32C;
+  box-shadow: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.footer{
+  display: table;
+  position: absolute;
+  width: 100%;
+  bottom: 10px!important;
+}
+
+#canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 800px;
+  height: 500px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 2px solid #07C32C;
+  background-color: #000;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
