@@ -1,4 +1,4 @@
-"use strict";
+
 class Game {
   constructor() {
     this.canvas = null;
@@ -7,6 +7,7 @@ class Game {
     this.player = null;
     this.gameIsOver = false;
     this.score = 0;
+    
   }
 
   start() {
@@ -26,8 +27,14 @@ class Game {
         this.player.goLeft();
       } else if (event.code === "Space") {
         this.player.shoot();
+        new Audio('./sound/playerfire.mp3').play();
       }
     };
+
+    //setInterval(function() {
+      this.generateEnemies();
+      console.log('enemies going down')
+    //}, 1000);
 
     // Any function provided to eventListener
     document.body.addEventListener("keydown", this.handleKeyDown);
@@ -38,11 +45,8 @@ class Game {
 
   startLoop() {
     const loop = () => {
-      // Draw the enemies
-
-      this.enemies.forEach((enemy) => {
-        enemy.drawEnemy();
-      });
+      
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       // if (Math.random() > 0.99) {
       //   const y = Math.random() * this.canvas.height;
@@ -52,15 +56,22 @@ class Game {
 
       // 1. UPDATE THE STATE OF PLAYER AND WE MOVE THE OBSTACLES
 
-      //this.enemies.forEach((enemy) => {
+      // this.enemies.forEach((enemy) => {
       //  enemy.move();
-      //});
+      // });
+
+      // for (let i = 0; i <= 800; i+=40) {
+
+
+      // this.enemies.forEach(enemy => {
+      //   enemy.update();
+      //   setInterval(function(){ console.log('enemies going down') }, 500);
+      // })
 
       this.checkCollisions();
 
       // 2. CLEAR THE CANVAS
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+      
       // 3. UPDATE THE CANVAS
       // Draw the player
 
@@ -72,6 +83,14 @@ class Game {
         console.log('is painting the laser')
         laser.drawLaser()
       })
+
+      // Draw the enemies
+
+      this.enemies.forEach((enemy) => {
+      enemy.drawEnemy();
+      enemy.update();
+       });
+
 
       // 4. TERMINATE LOOP IF GAME IS OVER
       if (!this.gameIsOver) {
@@ -87,16 +106,24 @@ class Game {
     window.requestAnimationFrame(loop);
   }
 
-  checkCollisions() {
-    this.enemies.forEach((enemy) => {
-      if (this.player.didCollide(enemy)) {
-        console.log("boom");
-        this.gameIsOver = true;
+  generateEnemies(){
+    for (let i = 0; i <= 700; i+=60) {
+      const y = 10+i;
+      let x = 20;
+      this.enemies.push(new Enemy(this.ctx, y, x, 1));
+      console.log("make an enemy")
+    }
+  }
+
+  checkLaserCollisions() {
+    this.player.lasers.forEach((laser) => {
+      if (this.enemy.didCollide(laser)) {
+        console.log("die motherfucker!");
       }
     });
   }
 
-  checkLaserCollisions() {
+  checkCollisions() {
     this.enemies.forEach((enemy) => {
       if (this.player.didCollide(enemy)) {
         console.log("boom");

@@ -42,7 +42,7 @@ class Player {
     console.log("I'm shooting");
     setInterval(function() {
       laser.y = laser.y - 30;
-      console.log('laser setinterval', laser.y)
+      //console.log('laser setinterval', laser.y)
     }, 50);
 
   }

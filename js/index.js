@@ -65,7 +65,7 @@ const buildGameOver = () => {
       <p>ORIGINAL GAME: © TAMED YOUTH STUDIOS 2021<br>LICENSED TO NIENTIENDO</p>
   </div>
   `);
-
+  new Audio('./sound/gameover.mp3').play();
   const restartButton = document.querySelector("button");
   restartButton.addEventListener("click", buildGameScreen);
 };
