@@ -10,9 +10,9 @@ class Player {
     this.size = 30;
     this.x = canvas.width / 2 - 15;
     this.y = 450;
-    //this.y = canvas.height / 2;
     this.direction = 0;
     this.speed = 2;
+    this.lasers = [];
   }
 
   // Move player and check if is out of the screen / canvas
@@ -34,13 +34,27 @@ class Player {
     }
   }
 
-  //
+  // Shooting lasers
 
+  shoot(){
+    const laser = new Laser(this.x, this.ctx);
+    this.lasers.unshift(laser); 
+    console.log("I'm shooting");
+    setInterval(function() {
+      laser.y = laser.y - 30;
+      console.log('laser setinterval', laser.y)
+    }, 50);
+
+  }
+
+  // Print player
 
   draw() {
-    const enemyImg = new Image();
-    enemyImg.src = "./images/player-blue-1.png"
-    this.ctx.drawImage(enemyImg, this.x, this.y, this.size, this.size);
+    const playerImg = new Image();
+    playerImg.src = "./images/player-blue-1.png"
+    this.ctx.drawImage(playerImg, this.x, this.y, this.size, this.size);
+    // this.ctx.fillStyle = "red";
+    // this.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
 
   didCollide(obstacle) {

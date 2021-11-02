@@ -1,6 +1,6 @@
-const enemies = [
-  this.ctx.Enemy({ x: 50, y: 50}),
-  this.ctx Enemy({ x: 100, y: 50}),
+const virus = [
+  new Enemy({ x: 50, y: 50}),
+  new Enemy({ x: 100, y: 50}),
   new Enemy({ x: 150, y: 50}),
   new Enemy({ x: 200, y: 50}),
   new Enemy({ x: 250, y: 50}),

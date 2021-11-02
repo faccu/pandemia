@@ -3,7 +3,7 @@ class Game {
   constructor() {
     this.canvas = null;
     this.ctx = null;
-    this.enemies = [...enemies];
+    this.enemies = [];
     this.player = null;
     this.gameIsOver = false;
     this.score = 0;
@@ -24,6 +24,8 @@ class Game {
         this.player.goRight();
       } else if (event.code === "ArrowLeft") {
         this.player.goLeft();
+      } else if (event.code === "Space") {
+        this.player.shoot();
       }
     };
 
@@ -36,19 +38,23 @@ class Game {
 
   startLoop() {
     const loop = () => {
-      // We create the enemies with random y
-      //if (Math.random() > 0.99) {
-      //  const y = Math.random() * this.canvas.height;
-      //  const x = this.canvas.width - 20;
-      //  this.enemies.push(new Enemy(this.ctx, y, x, 1));
-      //}
-      this.enemies.push(new Enemy(this.ctx, y, x, 1));
+      // Draw the enemies
+
+      this.enemies.forEach((enemy) => {
+        enemy.drawEnemy();
+      });
+
+      // if (Math.random() > 0.99) {
+      //   const y = Math.random() * this.canvas.height;
+      //   const x = this.canvas.width - 20;
+      //   this.enemies.push(new Enemy(this.ctx, y, x, 1));
+      // }
 
       // 1. UPDATE THE STATE OF PLAYER AND WE MOVE THE OBSTACLES
-      this.player.draw();
-      this.enemies.forEach((enemy) => {
-        enemy.move();
-      });
+
+      //this.enemies.forEach((enemy) => {
+      //  enemy.move();
+      //});
 
       this.checkCollisions();
 
@@ -57,12 +63,15 @@ class Game {
 
       // 3. UPDATE THE CANVAS
       // Draw the player
+
       this.player.draw();
 
-      // Draw the enemies
-      this.enemies.forEach((enemy) => {
-        enemy.draw();
-      });
+      // Draw the laser
+
+      this.player.lasers.forEach(laser => {
+        console.log('is painting the laser')
+        laser.drawLaser()
+      })
 
       // 4. TERMINATE LOOP IF GAME IS OVER
       if (!this.gameIsOver) {
@@ -79,6 +88,15 @@ class Game {
   }
 
   checkCollisions() {
+    this.enemies.forEach((enemy) => {
+      if (this.player.didCollide(enemy)) {
+        console.log("boom");
+        this.gameIsOver = true;
+      }
+    });
+  }
+
+  checkLaserCollisions() {
     this.enemies.forEach((enemy) => {
       if (this.player.didCollide(enemy)) {
         console.log("boom");

@@ -32,7 +32,7 @@ const buildGameScreen = () => {
     <div class="">
       <div class="">
         <div id="game-board">
-        <canvas id="canvas" width="800" height="500"></canvas>
+        <canvas class="glow" id="canvas" width="800" height="500"></canvas>
         </div>
       </div>
     </div>

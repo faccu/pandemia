@@ -78,6 +78,20 @@ body button {
   right: 0;
   border: 2px solid #07C32C;
   background-color: #000;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+  /* background-image: url('../images/background-black.png'); */
+}
+
+@-webkit-keyframes canvas {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #07C32C, 0 0 40px #07C32C, 0 0 50px #07C32C, 0 0 60px #07C32C, 0 0 70px #07C32C;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px rgb(95, 242, 81), 0 0 50px rgb(95, 242, 81), 0 0 60px rgb(95, 242, 81), 0 0 70px rgb(95, 242, 81), 0 0 80px rgb(95, 242, 81);
+  }
 }
 
 .show {
@@ -87,3 +101,4 @@ body button {
 .hide {
   display: none;
 }
+
