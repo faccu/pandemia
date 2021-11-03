@@ -39,12 +39,15 @@ class Player {
   shoot(){
     const laser = new Laser(this.x, this.ctx);
     this.lasers.unshift(laser); 
-    console.log("I'm shooting");
-    setInterval(function() {
+    const intervalId = setInterval(function() {
       laser.y = laser.y - 30;
-      //console.log('laser setinterval', laser.y)
     }, 50);
-
+    
+      this.lasers.forEach((el) => {
+        if (el.y <= 0){
+          this.lasers.pop()
+        }
+      })
   }
 
   // Print player

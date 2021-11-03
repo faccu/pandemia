@@ -17,7 +17,7 @@ class Enemy {
   }
 
   update(){
-    this.y += 0.5;
+    this.y += 0.15;
   }
 
   // enemyShoot(){
@@ -39,10 +39,10 @@ class Enemy {
     if (
       this.x + this.size >= obstacle.x &&
       this.y + this.size > obstacle.y &&
-      this.y < obstacle.y + obstacle.size &&
-      this.x <= obstacle.x + obstacle.size &&
+      this.y < obstacle.y + obstacle.height &&
+      this.x <= obstacle.x + obstacle.width + 10 &&
       this.y + this.size > obstacle.y &&
-      this.y < obstacle.y + obstacle.size
+      this.y < obstacle.y + obstacle.height
     ) {
       return true;
     } else {

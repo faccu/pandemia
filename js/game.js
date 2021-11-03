@@ -45,7 +45,7 @@ class Game {
 
   startLoop() {
     const loop = () => {
-      
+      // 2. CLEAR THE CANVAS
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       // if (Math.random() > 0.99) {
@@ -70,7 +70,7 @@ class Game {
 
       this.checkCollisions();
 
-      // 2. CLEAR THE CANVAS
+      this.checkLaserCollisions();
       
       // 3. UPDATE THE CANVAS
       // Draw the player
@@ -80,7 +80,6 @@ class Game {
       // Draw the laser
 
       this.player.lasers.forEach(laser => {
-        console.log('is painting the laser')
         laser.drawLaser()
       })
 
@@ -108,20 +107,45 @@ class Game {
 
   generateEnemies(){
     for (let i = 0; i <= 700; i+=60) {
-      const y = 10+i;
+      console.log(i)
+      const y = 51+i;
       let x = 20;
+      this.enemies.push(new Enemy(this.ctx, y, x, 1));
+      console.log("make an enemy")
+    }
+    for (let i = 0; i <= 600; i+=60) {
+      console.log(i)
+      const y = 80+i;
+      let x = 80;
+      this.enemies.push(new Enemy(this.ctx, y, x, 1));
+      console.log("make an enemy")
+    }
+    for (let i = 0; i <= 700; i+=60) {
+      console.log(i)
+      const y = 51+i;
+      let x = 140;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
       console.log("make an enemy")
     }
   }
 
-  checkLaserCollisions() {
-    this.player.lasers.forEach((laser) => {
-      if (this.enemy.didCollide(laser)) {
-        console.log("die motherfucker!");
-      }
-    });
-  }
+
+   checkLaserCollisions() {
+     this.player.lasers.forEach((laser) => {
+       //console.log('laser', laser)
+       this.enemies.forEach((enemy) => {
+         //console.log('enemy', enemy)
+         if(enemy.didCollide(laser)) {
+          console.log("die motherfucker!");
+          const removeEnemy = this.enemies.indexOf(enemy)
+          this.enemies.splice(removeEnemy, 1)
+          const removeLaser = this.player.lasers.indexOf(laser)
+          this.player.lasers.splice(removeLaser, 1)
+          new Audio('./sound/enemydie.mp3').play();
+        }
+       })
+     });
+   }
 
   checkCollisions() {
     this.enemies.forEach((enemy) => {

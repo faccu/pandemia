@@ -11,7 +11,8 @@ const buildSplashScreen = () => {
     <div class="middle">
       <div class="inner">
       <img src="./images/logo.png" alt="" style="width:50%;" />
-      <br />
+      
+      <br/>
       <button id="start-button" class="blink">START</button>
       </div>
     </div>
@@ -25,20 +26,24 @@ const buildSplashScreen = () => {
   startButton.addEventListener("click", buildGameScreen);
 };
 
-// Second Screen => Game Screen
+// <img src="./images/splash-bright.png" alt="" style="width:200px;" class="splash"/>
 const buildGameScreen = () => {
   buildDom(`
   <div class="">
     <div class="">
       <div class="">
+        
         <div id="game-board">
         <canvas class="glow" id="canvas" width="800" height="500"></canvas>
         </div>
       </div>
     </div>
   </div>
-  <button id="end-button">End Game</button>
+  <div class="footer">
+    <button id="end-button">FINISH</button>
+  </div>
   `);
+  //<img src="./images/logo.png" alt="" style="width:200px;" />
 
   const endButton = document.getElementById("end-button");
   endButton.addEventListener("click", buildGameOver);
