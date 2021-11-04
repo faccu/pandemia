@@ -1,3 +1,4 @@
+"use strict";
 
 class Game {
   constructor() {
@@ -7,7 +8,6 @@ class Game {
     this.player = null;
     this.gameIsOver = false;
     this.score = 0;
-    
   }
 
   start() {
@@ -30,14 +30,10 @@ class Game {
         new Audio('./sound/playerfire.mp3').play();
       }
     };
-
-    //setInterval(function() {
-      this.generateEnemies();
-      console.log('enemies going down')
-    //}, 1000);
-
     // Any function provided to eventListener
     document.body.addEventListener("keydown", this.handleKeyDown);
+
+    this.generateEnemies();
 
     // Start the canvas requestAnimationFrame loop
     this.startLoop();
@@ -45,34 +41,14 @@ class Game {
 
   startLoop() {
     const loop = () => {
-      // 2. CLEAR THE CANVAS
+      // CLEAR THE CANVAS
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      // if (Math.random() > 0.99) {
-      //   const y = Math.random() * this.canvas.height;
-      //   const x = this.canvas.width - 20;
-      //   this.enemies.push(new Enemy(this.ctx, y, x, 1));
-      // }
-
-      // 1. UPDATE THE STATE OF PLAYER AND WE MOVE THE OBSTACLES
-
-      // this.enemies.forEach((enemy) => {
-      //  enemy.move();
-      // });
-
-      // for (let i = 0; i <= 800; i+=40) {
-
-
-      // this.enemies.forEach(enemy => {
-      //   enemy.update();
-      //   setInterval(function(){ console.log('enemies going down') }, 500);
-      // })
 
       this.checkCollisions();
 
       this.checkLaserCollisions();
       
-      // 3. UPDATE THE CANVAS
+      // UPDATE THE CANVAS
       // Draw the player
 
       this.player.draw();
@@ -86,16 +62,41 @@ class Game {
       // Draw the enemies
 
       this.enemies.forEach((enemy) => {
-      enemy.drawEnemy();
-      enemy.update();
-       });
+        enemy.drawEnemy();
+        enemy.update();
+        enemy.enemyShoot();
+      });
 
+      console.log(this.enemies);
+      this.enemies[0].enemyLasers.forEach(laser => {
+        laser.drawEnemyLaser();
+      })
 
-      // 4. TERMINATE LOOP IF GAME IS OVER
+      // TERMINATE LOOP IF GAME IS OVER
+
+      if (enemies.length <= 0) {
+        buildYouWin();
+        new Audio('./sound/youwin.mp3').play();
+        sound.pause();
+        sound.currentTime = 0;
+      }
+
+      this.enemies.forEach((enemy, index) => {
+        if (enemy.y + enemy.size >= this.canvas.height) {
+          buildGameOver();
+          new Audio('./sound/gameover.mp3').play();
+          sound.pause();
+          sound.currentTime = 0;
+        }
+      });
+
       if (!this.gameIsOver) {
         window.requestAnimationFrame(loop);
       } else {
         buildGameOver();
+        new Audio('./sound/gameover.mp3').play();
+        sound.pause();
+        sound.currentTime = 0;
       }
     };
 
@@ -110,31 +111,31 @@ class Game {
       console.log(i)
       const y = 51+i;
       let x = 20;
-      this.enemies.push(new Enemy(this.ctx, y, x, 1));
-      console.log("make an enemy")
+      this.enemies.push(new Enemy(this.ctx, y, x, 1,));
     }
     for (let i = 0; i <= 600; i+=60) {
       console.log(i)
       const y = 80+i;
       let x = 80;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
-      console.log("make an enemy")
     }
     for (let i = 0; i <= 700; i+=60) {
       console.log(i)
       const y = 51+i;
       let x = 140;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
-      console.log("make an enemy")
+    }
+    for (let i = 0; i <= 600; i+=60) {
+      console.log(i)
+      const y = 80+i;
+      let x = 200;
+      this.enemies.push(new Enemy(this.ctx, y, x, 1));
     }
   }
 
-
    checkLaserCollisions() {
      this.player.lasers.forEach((laser) => {
-       //console.log('laser', laser)
        this.enemies.forEach((enemy) => {
-         //console.log('enemy', enemy)
          if(enemy.didCollide(laser)) {
           console.log("die motherfucker!");
           const removeEnemy = this.enemies.indexOf(enemy)
@@ -145,6 +146,18 @@ class Game {
         }
        })
      });
+    //  this.enemies.enemyLasers.forEach((laser) => {
+    //   this.enemies.forEach((player) => {
+    //     if(player.didCollide(enemyLasers)) {
+    //      console.log("ouch");
+    //      const removePlayer = this.player.indexOf(player)
+    //      this.enemies.splice(removePlayer, 1)
+    //      const removeEnemyLaser = this.player.enemyLasers.indexOf(laser)
+    //      this.player.lasers.splice(removeEnemyLaser, 1)
+    //      new Audio('./sound/playerhit.mp3').play();
+    //    }
+    //   })
+    // });
    }
 
   checkCollisions() {
@@ -152,6 +165,7 @@ class Game {
       if (this.player.didCollide(enemy)) {
         console.log("boom");
         this.gameIsOver = true;
+        
       }
     });
   }

@@ -42,7 +42,6 @@ class Player {
     const intervalId = setInterval(function() {
       laser.y = laser.y - 30;
     }, 50);
-    
       this.lasers.forEach((el) => {
         if (el.y <= 0){
           this.lasers.pop()

@@ -12,28 +12,28 @@ class Enemy {
     const enemyImg = new Image();
     enemyImg.src = "./images/covid.png"
     this.ctx.drawImage(enemyImg, this.x, this.y, this.size, this.size);
-    // this.ctx.fillStyle = "white";
-    // this.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
 
   update(){
     this.y += 0.15;
   }
 
-  // enemyShoot(){
-  //   const laser = new EnemyLaser(this.x, this.ctx);
-  //   this.lasers.unshift(laser); 
-  //   console.log("I'm shooting");
-  //   setInterval(function() {
-  //     laser.y = laser.y + 30;
-  //     console.log('laser setinterval', laser.y)
-  //   }, 50);
-
-  // }
-
-  move() {
-    this.y += this.speed * -2;
+  enemyShoot(){
+    // const laserEnemy = new EnemyLaser(this.x, this.ctx);
+    // this.enemyLasers.unshift(laserEnemy); 
+    // const intervalIdEnemy = setInterval(function() {
+    //   laserEnemy.y = laserEnemy.y + 30;
+    // }, 50);
+    //   this.enemyLasers.forEach((el) => {
+    //     if (el.y <= 0){
+    //       this.enemyLasers.pop()
+    //     }
+    // })
   }
+
+  // move() {
+  //   this.y += this.speed * -2;
+  // }
   
   didCollide(obstacle) {
     if (

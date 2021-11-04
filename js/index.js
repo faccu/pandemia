@@ -10,8 +10,7 @@ const buildSplashScreen = () => {
   <div class="outer">
     <div class="middle">
       <div class="inner">
-      <img src="./images/logo.png" alt="" style="width:50%;" />
-      
+      <img src="./images/logo.png" alt="" style="width:50%;"/>
       <br/>
       <button id="start-button" class="blink">START</button>
       </div>
@@ -32,7 +31,6 @@ const buildGameScreen = () => {
   <div class="">
     <div class="">
       <div class="">
-        
         <div id="game-board">
         <canvas class="glow" id="canvas" width="800" height="500"></canvas>
         </div>
@@ -44,22 +42,44 @@ const buildGameScreen = () => {
   </div>
   `);
   //<img src="./images/logo.png" alt="" style="width:200px;" />
-
   const endButton = document.getElementById("end-button");
   endButton.addEventListener("click", buildGameOver);
-
   const game = new Game();
   game.start();
+  new Audio('./sound/start.mp3').play();
 };
 
-// Third Screen => Game Over
+// Third Screen => You Win
+const buildYouWin = () => {
+  buildDom(`
+  <div class="outer">
+    <div class="middle">
+      <div class="inner">
+        <section class="game-over">
+        <h1>YOU WIN</h1>
+        <p>Congrats! You flattened the curve!</p>
+        <button id="game" class="blink">PLAY AGAIN</button>
+        <div class= "pointer"> </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+      <p>ORIGINAL GAME: © TAMED YOUTH STUDIOS 2021<br>LICENSED TO NIENTIENDO</p>
+  </div>
+  `);
+  const restartButton = document.querySelector("button");
+  restartButton.addEventListener("click", buildGameScreen);
+};
+
+// Fourth Screen => Game Over
 const buildGameOver = () => {
   buildDom(`
   <div class="outer">
     <div class="middle">
       <div class="inner">
         <section class="game-over">
-        <h1>Game Over</h1>
+        <h1>GAME OVER</h1>
         <button id="game" class="blink">TRY AGAIN</button>
         <div class= "pointer"> </div>
         </section>
@@ -70,7 +90,6 @@ const buildGameOver = () => {
       <p>ORIGINAL GAME: © TAMED YOUTH STUDIOS 2021<br>LICENSED TO NIENTIENDO</p>
   </div>
   `);
-  new Audio('./sound/gameover.mp3').play();
   const restartButton = document.querySelector("button");
   restartButton.addEventListener("click", buildGameScreen);
 };

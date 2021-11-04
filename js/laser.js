@@ -9,9 +9,7 @@ class Laser {
 
   drawLaser(){
     const laserImg = new Image();
-    laserImg.src = "./images/laser-blue-1.png";
+    laserImg.src = "./images/laser-player.png";
     this.ctx.drawImage(laserImg, this.x + 12, this.y, this.width, this.height);
-    // this.ctx.fillStyle = "blue";
-    // this.ctx.fillRect(this.x, this.y, this.width, this.height);
 }
 }

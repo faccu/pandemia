@@ -6,6 +6,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   z-index:1;
+  overflow: hidden;
   /* font-family: 'Press Start 2P', cursive; */
 }
 
@@ -111,6 +112,9 @@ body button {
   left: 0;
   right: 0;
   border: 2px solid #07C32C;
+  background-image: url('../images/canvas-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: #000;
   text-align: center;
   
