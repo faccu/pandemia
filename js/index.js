@@ -56,8 +56,8 @@ const buildYouWin = () => {
     <div class="middle">
       <div class="inner">
         <section class="game-over">
-        <h1>YOU WIN</h1>
-        <p>Congrats! You flattened the curve!</p>
+        <h1>CONGRATS</h1>
+        <p>You flattened the curve!</p>
         <button id="game" class="blink">PLAY AGAIN</button>
         <div class= "pointer"> </div>
         </section>

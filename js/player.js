@@ -55,8 +55,6 @@ class Player {
     const playerImg = new Image();
     playerImg.src = "./images/player-blue-1.png"
     this.ctx.drawImage(playerImg, this.x, this.y, this.size, this.size);
-    // this.ctx.fillStyle = "red";
-    // this.ctx.fillRect(this.x, this.y, this.size, this.size);
   }
 
   didCollide(obstacle) {

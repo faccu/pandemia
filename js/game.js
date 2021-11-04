@@ -64,24 +64,27 @@ class Game {
       this.enemies.forEach((enemy) => {
         enemy.drawEnemy();
         enemy.update();
-        enemy.enemyShoot();
+        // enemy.enemyShoot();
       });
 
-      console.log(this.enemies);
-      this.enemies[0].enemyLasers.forEach(laser => {
-        laser.drawEnemyLaser();
-      })
+      // console.log(this.enemies);
+      // this.enemies[0].enemyLasers.forEach(laser => {
+      //   laser.drawEnemyLaser();
+      // })
+
+      // TERMINATE LOOP IF ALL ENEMIES ARE DEAD
+
+      
+        if (this.enemies.length === 0) {
+          buildYouWin();
+          new Audio('./sound/youwin.mp3').play();
+          sound.pause();
+          sound.currentTime = 0;
+        }
 
       // TERMINATE LOOP IF GAME IS OVER
 
-      if (enemies.length <= 0) {
-        buildYouWin();
-        new Audio('./sound/youwin.mp3').play();
-        sound.pause();
-        sound.currentTime = 0;
-      }
-
-      this.enemies.forEach((enemy, index) => {
+      this.enemies.forEach((enemy) => {
         if (enemy.y + enemy.size >= this.canvas.height) {
           buildGameOver();
           new Audio('./sound/gameover.mp3').play();
@@ -146,14 +149,14 @@ class Game {
         }
        })
      });
-    //  this.enemies.enemyLasers.forEach((laser) => {
+    //  this.enemy.enemyLasers.forEach((laser) => {
     //   this.enemies.forEach((player) => {
-    //     if(player.didCollide(enemyLasers)) {
+    //     if(enemyLasers.didCollide(player)) {
     //      console.log("ouch");
     //      const removePlayer = this.player.indexOf(player)
     //      this.enemies.splice(removePlayer, 1)
     //      const removeEnemyLaser = this.player.enemyLasers.indexOf(laser)
-    //      this.player.lasers.splice(removeEnemyLaser, 1)
+    //      this.player.enemyLasers.splice(removeEnemyLaser, 1)
     //      new Audio('./sound/playerhit.mp3').play();
     //    }
     //   })

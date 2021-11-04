@@ -30,10 +30,6 @@ class Enemy {
     //     }
     // })
   }
-
-  // move() {
-  //   this.y += this.speed * -2;
-  // }
   
   didCollide(obstacle) {
     if (
