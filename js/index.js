@@ -1,4 +1,5 @@
 // General function that will update the HTML content dinamically
+
 const buildDom = (html) => {
   const main = document.querySelector("main");
   main.innerHTML = html;
@@ -14,7 +15,7 @@ const buildSplashScreen = () => {
       <br/>
       <button id="start-button" class="blink">START</button>
       <br/>
-      <p>Coronavirus is taking over the world! Is your duty to stop him. Use the arrows (← →) to move the character and the spacebar for shooting the virus !</p>
+      <p>Coronavirus is taking over the world! Is your duty to stop it.<br>Use the arrows (← →) to move the character and the spacebar for shooting.</p>
       </div>
     </div>
   </div>
@@ -43,7 +44,6 @@ const buildGameScreen = () => {
     <button id="end-button">FINISH</button>
   </div>
   `);
-  //<img src="./images/logo.png" alt="" style="width:200px;" />
   const endButton = document.getElementById("end-button");
   endButton.addEventListener("click", buildGameOver);
   const game = new Game();
@@ -52,6 +52,7 @@ const buildGameScreen = () => {
 };
 
 // Third Screen => You Win
+
 const buildYouWin = () => {
   buildDom(`
   <div class="outer">
@@ -75,6 +76,7 @@ const buildYouWin = () => {
 };
 
 // Fourth Screen => Game Over
+
 const buildGameOver = () => {
   buildDom(`
   <div class="outer">

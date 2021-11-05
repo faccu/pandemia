@@ -1,3 +1,8 @@
+@font-face {
+  font-family: neuebit;
+  src: url("../fonts/PPNeueBit-Bold.otf");
+}
+
 body {
   text-align: center;
   background-color: black;
@@ -9,7 +14,11 @@ body {
   z-index: 1;
   overflow: hidden;
   height: 100vh;
-  /* font-family: 'Press Start 2P', cursive; */
+  font-family: "neuebit", sans-serif;
+}
+
+.game-over p {
+  font-size: 33px !important;
 }
 
 .outer {
@@ -33,7 +42,7 @@ body {
 }
 
 .inner p {
-  font-size: 20px;
+  font-size: 22px;
 }
 
 .inner img {
@@ -93,28 +102,21 @@ img.splash {
 }
 
 body h1 {
-  font-size: 60px;
+  font-size: 80px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 body button {
-  font-size: 20px;
+  font-size: 30px;
   background-color: #000;
   color: #07c32c;
-  padding: 10px 20px;
+  padding: 10px 20px 6px;
   border: 2px solid #07c32c;
   box-shadow: 0;
   border-radius: 5px;
-  margin-bottom: 15px;
-  /* box-shadow:
-  /* inset 0 0 50px #fff,      /* inner white */
-  /* inset 20px 0 80px #f0f,   /* inner left magenta short */
-  /* inset -20px 0 80px #0ff,  /* inner right cyan short */
-  /* inset 20px 0 300px #f0f,  /* inner left magenta broad */
-  /* inset -20px 0 300px #0ff, /* inner right cyan broad */
-  /* 0 0 50px #fff,            /* outer white */
-  /* -10px 0 80px #f0f,        /* outer left magenta */
-  /* 10px 0 80px #0ff;         /* outer right cyan */
+  margin-bottom: 25px;
+  font-family: "neuebit", sans-serif;
 }
 
 .footer {
@@ -141,12 +143,6 @@ body button {
   background-size: cover;
   background-color: #000;
   text-align: center;
-
-  /* box-shadow: 0 0 50px #07C32C,            /* outer white */
-  /* -10px 0 80px #07C32C,        /* outer left magenta */
-  /* 10px 0 80px #07C32C;         /* outer right cyan */
-
-  /* background-image: url('../images/background-black.png'); */
 }
 
 .show {
