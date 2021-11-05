@@ -7,9 +7,11 @@ class Player {
     this.canvasHeight = 500;
     this.canvasWidth = 800;
     this.lives = lives;
-    this.size = 30;
+    // this.size = 30;
+    this.width = 17;
+    this.height = 60;
     this.x = canvas.width / 2 - 15;
-    this.y = 450;
+    this.y = 420;
     this.direction = 0;
     this.speed = 2;
     this.lasers = [];
@@ -46,19 +48,21 @@ class Player {
   draw() {
     const playerImg = new Image();
     playerImg.src = "./images/player.png"
-    this.ctx.drawImage(playerImg, this.x, this.y, this.size, this.size);
+    // this.ctx.drawImage(playerImg, this.x, this.y, this.size, this.size);
+    this.ctx.drawImage(playerImg, this.x, this.y, this.width, this.height);
   }
 
   didCollide(obstacle) {
-    console.log('collide')
+    
     if (
-      this.x + this.size >= obstacle.x &&
-      this.y + this.size > obstacle.y &&
+      this.x + this.width >= obstacle.x &&
+      this.y + this.height > obstacle.y &&
       this.y < obstacle.y + obstacle.size &&
       this.x <= obstacle.x + obstacle.size &&
-      this.y + this.size > obstacle.y &&
+      this.y + this.height > obstacle.y &&
       this.y < obstacle.y + obstacle.size
     ) {
+      console.log('collide')
       return true;
     } else {
       return false;
