@@ -9,10 +9,12 @@ const buildSplashScreen = () => {
   buildDom(`
   <div class="outer">
     <div class="middle">
-      <div class="inner">
+      <div class="inner logo-splash">
       <img src="./images/logo.png" alt="" style="width:50%;"/>
       <br/>
       <button id="start-button" class="blink">START</button>
+      <br/>
+      <p>Coronavirus is taking over the world! Is your duty to stop him. Use the arrows (← →) to move the character and the spacebar for shooting the virus !</p>
       </div>
     </div>
   </div>
@@ -25,7 +27,7 @@ const buildSplashScreen = () => {
   startButton.addEventListener("click", buildGameScreen);
 };
 
-// <img src="./images/splash-bright.png" alt="" style="width:200px;" class="splash"/>
+// 
 const buildGameScreen = () => {
   buildDom(`
   <div class="">

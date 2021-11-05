@@ -5,7 +5,7 @@ class Enemy {
     this.y = y;
     this.speed = speed;
     this.size = 30;
-    this.enemyLasers = [];
+    // this.enemyLasers = [];
   }
 
   drawEnemy() {
@@ -15,20 +15,7 @@ class Enemy {
   }
 
   update(){
-    this.y += 0.15;
-  }
-
-  enemyShoot(){
-    // const laserEnemy = new EnemyLaser(this.x, this.ctx);
-    // this.enemyLasers.unshift(laserEnemy); 
-    // const intervalIdEnemy = setInterval(function() {
-    //   laserEnemy.y = laserEnemy.y + 30;
-    // }, 50);
-    //   this.enemyLasers.forEach((el) => {
-    //     if (el.y <= 0){
-    //       this.enemyLasers.pop()
-    //     }
-    // })
+    this.y += 0.20;
   }
   
   didCollide(obstacle) {

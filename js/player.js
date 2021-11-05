@@ -38,15 +38,7 @@ class Player {
 
   shoot(){
     const laser = new Laser(this.x, this.ctx);
-    this.lasers.unshift(laser); 
-    const intervalId = setInterval(function() {
-      laser.y = laser.y - 30;
-    }, 50);
-      this.lasers.forEach((el) => {
-        if (el.y <= 0){
-          this.lasers.pop()
-        }
-      })
+    this.lasers.unshift(laser);
   }
 
   // Print player
@@ -58,6 +50,7 @@ class Player {
   }
 
   didCollide(obstacle) {
+    console.log('collide')
     if (
       this.x + this.size >= obstacle.x &&
       this.y + this.size > obstacle.y &&

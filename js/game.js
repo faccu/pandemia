@@ -5,6 +5,7 @@ class Game {
     this.canvas = null;
     this.ctx = null;
     this.enemies = [];
+    this.enemyLasers = [];
     this.player = null;
     this.gameIsOver = false;
     this.score = 0;
@@ -16,8 +17,9 @@ class Game {
     this.canvas = document.querySelector("canvas");
     this.ctx = canvas.getContext("2d");
 
-    // Create a new player for the current game
+    // Create a new player and enemies for the current game
     this.player = new Player(this.canvas, 3);
+    this.generateEnemies();
 
     // Add event listener for moving the player
     this.handleKeyDown = (event) => {
@@ -27,13 +29,11 @@ class Game {
         this.player.goLeft();
       } else if (event.code === "Space") {
         this.player.shoot();
-        new Audio('./sound/playerfire.mp3').play();
+        new Audio("./sound/playerfire.mp3").play();
       }
     };
     // Any function provided to eventListener
     document.body.addEventListener("keydown", this.handleKeyDown);
-
-    this.generateEnemies();
 
     // Start the canvas requestAnimationFrame loop
     this.startLoop();
@@ -46,8 +46,9 @@ class Game {
 
       this.checkCollisions();
 
-      this.checkLaserCollisions();
-      
+      this.checkPlayerLaserCollisions();
+      this.checkEnemyLaserCollisions();
+
       // UPDATE THE CANVAS
       // Draw the player
 
@@ -55,39 +56,45 @@ class Game {
 
       // Draw the laser
 
-      this.player.lasers.forEach(laser => {
-        laser.drawLaser()
-      })
+      this.player.lasers.forEach((laser) => {
+        laser.updateLaser();
+        laser.drawLaser();
+      });
+
+      this.player.laser = this.player.lasers.filter((laser) => laser.y > 0);
 
       // Draw the enemies
 
       this.enemies.forEach((enemy) => {
-        enemy.drawEnemy();
         enemy.update();
-        // enemy.enemyShoot();
+        enemy.drawEnemy();
       });
 
-      // console.log(this.enemies);
-      // this.enemies[0].enemyLasers.forEach(laser => {
-      //   laser.drawEnemyLaser();
-      // })
+      this.enemyLasers.forEach((laser) =>{
+        laser.updateLaser();
+        laser.drawEnemyLaser();
+      });
+
+      // draw enemy lasers
+      if (Math.random() > 0.99) {
+        this.enemyShoot();
+      }
 
       // TERMINATE LOOP IF ALL ENEMIES ARE DEAD
 
-      
-        if (this.enemies.length === 0) {
-          buildYouWin();
-          new Audio('./sound/youwin.mp3').play();
-          sound.pause();
-          sound.currentTime = 0;
-        }
+      if (this.enemies.length === 0) {
+        buildYouWin();
+        new Audio("./sound/youwin.mp3").play();
+        sound.pause();
+        sound.currentTime = 0;
+      }
 
       // TERMINATE LOOP IF GAME IS OVER
 
       this.enemies.forEach((enemy) => {
         if (enemy.y + enemy.size >= this.canvas.height) {
           buildGameOver();
-          new Audio('./sound/gameover.mp3').play();
+          new Audio("./sound/gameover.mp3").play();
           sound.pause();
           sound.currentTime = 0;
         }
@@ -97,7 +104,7 @@ class Game {
         window.requestAnimationFrame(loop);
       } else {
         buildGameOver();
-        new Audio('./sound/gameover.mp3').play();
+        new Audio("./sound/gameover.mp3").play();
         sound.pause();
         sound.currentTime = 0;
       }
@@ -108,68 +115,70 @@ class Game {
     // we need to `start an infinitive loop` till the game is over
     window.requestAnimationFrame(loop);
   }
+  
+  
 
-  generateEnemies(){
-    for (let i = 0; i <= 700; i+=60) {
-      console.log(i)
-      const y = 51+i;
+  generateEnemies() {
+    for (let i = 0; i <= 700; i += 60) {
+      const y = 51 + i;
       let x = 20;
-      this.enemies.push(new Enemy(this.ctx, y, x, 1,));
+      this.enemies.push(new Enemy(this.ctx, y, x, 1));
     }
-    for (let i = 0; i <= 600; i+=60) {
-      console.log(i)
-      const y = 80+i;
+    for (let i = 0; i <= 600; i += 60) {
+      const y = 80 + i;
       let x = 80;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
     }
-    for (let i = 0; i <= 700; i+=60) {
-      console.log(i)
-      const y = 51+i;
+    for (let i = 0; i <= 700; i += 60) {
+      const y = 51 + i;
       let x = 140;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
     }
-    for (let i = 0; i <= 600; i+=60) {
-      console.log(i)
-      const y = 80+i;
+    for (let i = 0; i <= 600; i += 60) {
+      const y = 80 + i;
       let x = 200;
       this.enemies.push(new Enemy(this.ctx, y, x, 1));
     }
   }
 
-   checkLaserCollisions() {
-     this.player.lasers.forEach((laser) => {
-       this.enemies.forEach((enemy) => {
-         if(enemy.didCollide(laser)) {
-          console.log("die motherfucker!");
-          const removeEnemy = this.enemies.indexOf(enemy)
-          this.enemies.splice(removeEnemy, 1)
-          const removeLaser = this.player.lasers.indexOf(laser)
-          this.player.lasers.splice(removeLaser, 1)
-          new Audio('./sound/enemydie.mp3').play();
+  checkPlayerLaserCollisions() {
+    this.player.lasers.forEach((laser) => {
+      this.enemies.forEach((enemy) => {
+        if (enemy.didCollide(laser)) {
+          const removeEnemy = this.enemies.indexOf(enemy);
+          this.enemies.splice(removeEnemy, 1);
+          const removeLaser = this.player.lasers.indexOf(laser);
+          this.player.lasers.splice(removeLaser, 1);
+          new Audio("./sound/enemydie.mp3").play();
         }
-       })
-     });
-    //  this.enemy.enemyLasers.forEach((laser) => {
-    //   this.enemies.forEach((player) => {
-    //     if(enemyLasers.didCollide(player)) {
-    //      console.log("ouch");
-    //      const removePlayer = this.player.indexOf(player)
-    //      this.enemies.splice(removePlayer, 1)
-    //      const removeEnemyLaser = this.player.enemyLasers.indexOf(laser)
-    //      this.player.enemyLasers.splice(removeEnemyLaser, 1)
-    //      new Audio('./sound/playerhit.mp3').play();
-    //    }
-    //   })
-    // });
-   }
+      });
+    });
+  }
+
+  checkEnemyLaserCollisions(){
+    this.enemyLasers.forEach((enemyLaser) => {
+        if (this.player.didCollide(enemyLaser)) {
+          console.log("you killed me motherfucker!!");
+          this.gameIsOver = true;
+          let gameOverSound = new Audio("./sound/gameover.mp3").play();
+          // gameOverSound.pause();
+          // gameOverSound.currentTime = 0;
+        }
+    });
+  }
 
   checkCollisions() {
     this.enemies.forEach((enemy) => {
       if (this.player.didCollide(enemy)) {
-        console.log("boom");
         this.gameIsOver = true;
-        
       }
     });
+  }
+
+  enemyShoot() {
+    const randomEnemyIdx = Math.floor(Math.random() * this.enemies.length)
+    const randomEnemy = this.enemies[randomEnemyIdx]
+      const laserEnemy = new EnemyLaser(randomEnemy.x, randomEnemy.y, this.ctx);
+      this.enemyLasers.push(laserEnemy);
   }
 }
